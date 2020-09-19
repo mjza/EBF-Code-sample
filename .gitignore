@@ -23,21 +23,11 @@
 hs_err_pid*
 /target/
 
-
-
 # Eclipse files
-
 .classpath
-
 .project
-
 .settings
 
-
-
 #IntelliJ Files
-
-
 .idea/
-
 *.iml
