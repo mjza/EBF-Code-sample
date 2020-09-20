@@ -52,7 +52,6 @@ sap.ui.define([
 			this._index = index;
 			this._setName = sSetName;
 			this._oDataModel = this.getModel("DataModel");
-			
 
 			if (index === undefined) {
 				this.onNavBack();
@@ -108,11 +107,11 @@ sap.ui.define([
 					oGroupElement;
 				this._oEntity = oEntity;
 				oForm.setTitle(oEntity.name);
-				
-				if(aComplexTypes) {
-					for (var b = 0; b<aComplexTypes.length; b++) {
-							var sName = oEntity.namespace + "."+ aComplexTypes[b].name;
-							aOdataTypes.push(sName);
+
+				if (aComplexTypes) {
+					for (var b = 0; b < aComplexTypes.length; b++) {
+						var sName = oEntity.namespace + "." + aComplexTypes[b].name;
+						aOdataTypes.push(sName);
 					}
 				}
 
@@ -120,35 +119,42 @@ sap.ui.define([
 
 					oGroupElement = new sap.ui.comp.smartform.GroupElement();
 					var oType = oEntity.property[i].type;
-					
+
 					if (oType.includes("Edm.")) {
-						
-							oSmartField = new sap.ui.comp.smartfield.SmartField({
-								textLabel: oEntity.property[i].name,
-								value: "{" + oEntity.property[i].name + "}"
-							});
-							oSmartField.attachChange(this.onEditableChanged);
-							oGroupElement.addElement(oSmartField);
-							oGroup.addGroupElement(oGroupElement);
-						} 
-					else {
-						
-						if(aOdataTypes.includes(oType)) {
-							
-							for(var a =0; a<aComplexTypes.length;a++) {
-								
+						var sText = oEntity.property[i].name;
+						if (oEntity.property[i].extensions) {
+							for (var j = 0; j < oEntity.property[i].extensions.length; j++) {
+								if (oEntity.property[i].extensions[j].name === "label") {
+									sText = oEntity.property[i].extensions[j].value;
+									break;
+								}
+							}
+						}
+						oSmartField = new sap.ui.comp.smartfield.SmartField({
+							textLabel: sText,
+							value: "{" + oEntity.property[i].name + "}"
+						});
+						oSmartField.attachChange(this.onEditableChanged);
+						oGroupElement.addElement(oSmartField);
+						oGroup.addGroupElement(oGroupElement);
+					} else {
+
+						if (aOdataTypes.includes(oType)) {
+
+							for (var a = 0; a < aComplexTypes.length; a++) {
+
 								if (oType.split(".")[1] === aComplexTypes[a].name) {
-									
+
 									var aHelperArray = aComplexTypes[a].property;
-									
-									for(var z=0; z<aHelperArray.length;z++){
+
+									for (var z = 0; z < aHelperArray.length; z++) {
 										if (aHelperArray[z].type.includes("Edm.")) {
-											
-												oSmartField = new sap.ui.comp.smartfield.SmartField({
-													textLabel: aHelperArray[z].name,
-													value:"Test"
+
+											oSmartField = new sap.ui.comp.smartfield.SmartField({
+												textLabel: aHelperArray[z].name,
+												value: "Test"
 													//value: "{"+ oEntity.property[i].name + "/"+ aHelperArray[z].name + "}"
-												});
+											});
 											//oSmartField.setValue("Bahnste");
 											oSmartField.attachChange(this.onEditableChanged);
 											oGroupElement.addElement(oSmartField);
@@ -156,7 +162,7 @@ sap.ui.define([
 										}
 									}
 								}
-						 	}
+							}
 						}
 
 					}
@@ -169,24 +175,24 @@ sap.ui.define([
 			var sProperty = oEvent.getSource().getTextLabel(),
 				oNewValue = oEvent.getParameters().newValue,
 				sDataType = this.getDataType();
-				
-				if (sDataType.includes("Edm.")) {
-						//umbauen-> nicht generisch genug
-					if (sDataType.includes("Int") || sDataType.includes("Single")) {
-						oNewValue = Number(oNewValue);
-						}
 
-					if (sDataType.includes("Decimal")) {
-						oNewValue = parseFloat(oNewValue);
-						}
-
-					if (sDataType.includes("Date")) {
-						oNewValue = oEvent.getSource().getContent().getDateValue();
-					}
-					
-						this.getModel("DataModel").setProperty("/" + sProperty, oNewValue);
-						this.getModel("objectView").setProperty("/hasChanges", true);
+			if (sDataType.includes("Edm.")) {
+				//umbauen-> nicht generisch genug
+				if (sDataType.includes("Int") || sDataType.includes("Single")) {
+					oNewValue = Number(oNewValue);
 				}
+
+				if (sDataType.includes("Decimal")) {
+					oNewValue = parseFloat(oNewValue);
+				}
+
+				if (sDataType.includes("Date")) {
+					oNewValue = oEvent.getSource().getContent().getDateValue();
+				}
+
+				this.getModel("DataModel").setProperty("/" + sProperty, oNewValue);
+				this.getModel("objectView").setProperty("/hasChanges", true);
+			}
 		},
 
 		onPressDelete: function (oEvent) {
@@ -391,7 +397,6 @@ sap.ui.define([
 			this.getModel("newDataModel").setData({});
 			this.onNavBack();
 		},
-
 
 		//NothwindModel.Customer 
 		//Customers

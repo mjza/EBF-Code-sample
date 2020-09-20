@@ -1,7 +1,7 @@
 /*global location */
 sap.ui.define([
 	"com/mjzsoft/demo/ui5/GeneralODataViewer/controller/BaseController",
-	"com/mjzsoft/demo/ui5/GeneralODataViewer/model/formatter", 
+	"com/mjzsoft/demo/ui5/GeneralODataViewer/model/formatter",
 	"sap/ui/model/json/JSONModel",
 	"sap/m/MessageToast",
 	"sap/base/Log",
@@ -42,12 +42,12 @@ sap.ui.define([
 			//Creation of the JSON Model for the Test Daya
 			// var oDataModel = new sap.ui.model.json.JSONModel(oData);
 			// this.setModel(oDataModel, "DataModel");
-			
+
 			var oNewModel = new JSONModel();
 			this.setModel(oNewModel, "newDataModel");
-			
+
 			this.getModel("DataDetailModel").setData(oData);
-		
+
 			this.getRouter().getRoute("object").attachPatternMatched(this._onObjectMatched, this);
 
 			this.getOwnerComponent().getModel().metadataLoaded().then(this._onMetadataLoaded.bind(this));
@@ -124,12 +124,12 @@ sap.ui.define([
 		 */
 		_onObjectMatched: function (oEvent) {
 			var sSetName = oEvent.getParameter("arguments").SetName,
-				sEntityName = oEvent.getParameter("arguments").EntityName, 
-				oViewModel	= this.getModel("appView");
-				this._sSetName = sSetName;
-				this._oEntityName = sEntityName;
-				oViewModel.setProperty("/layout", "TwoColumnsMidExpanded");
-				oViewModel.setProperty("/busy", true);
+				sEntityName = oEvent.getParameter("arguments").EntityName,
+				oViewModel = this.getModel("appView");
+			this._sSetName = sSetName;
+			this._oEntityName = sEntityName;
+			oViewModel.setProperty("/layout", "TwoColumnsMidExpanded");
+			oViewModel.setProperty("/busy", true);
 			var oModel = this.getModel();
 			oModel.metadataLoaded().then(function () {
 				oModel = this.getModel();
@@ -149,14 +149,26 @@ sap.ui.define([
 		},
 		//erstellen einer Smart-Table, abhängig der Daten mit Spalten und Zeilen
 		createSmartTable: function (sEntityName, sSetName) {
-			var oEntity = this.extractEntity(sEntityName, this.getModel()), 
+			var oEntity = this.extractEntity(sEntityName, this.getModel()),
 				oViewModel = this.getModel("detailView");
 			if (oEntity) {
 				this._oEntity = oEntity;
 				var aCells = [];
 				for (var i = 0; i < oEntity.property.length; i++) {
 					var oCol = oEntity.property[i];
-					aCells.push(oCol.name);
+					var sText = oCol.name;
+					if (oCol.extensions) {
+						for (var j = 0; j < oCol.extensions.length; j++) {
+							if(oCol.extensions[j].name === "label"){
+								sText = oCol.extensions[j].value;
+								break;
+							}
+						}
+					}
+					aCells.push({
+						col: oCol.name,
+						txt: sText
+					});
 				}
 				if (aCells.length > 0) {
 					var sCols = "",
@@ -166,17 +178,17 @@ sap.ui.define([
 							"	        <m:Column visible='true'> \n" +
 							"		       <m:customData> \n" +
 							"			      <core:CustomData key='p13nData' \n" +
-							"				     value='\\{\"sortProperty\":\"" + aCells[i] + "\",\"filterProperty\":\"" + aCells[i] + "\",\"columnKey\":\"" +
-							aCells[i] + "\",\"leadingProperty\":\"" + aCells[i] + "\",\"columnIndex\":\"" + i + "\"}'/> \n" +
+							"				     value='\\{\"sortProperty\":\"" + aCells[i].col + "\",\"filterProperty\":\"" + aCells[i].col + "\",\"columnKey\":\"" +
+							aCells[i].col + "\",\"leadingProperty\":\"" + aCells[i].col + "\",\"columnIndex\":\"" + i + "\"}'/> \n" +
 							"		       </m:customData> \n" +
-							"		       <m:Text text='" + aCells[i] + "'/> \n" +
+							"		       <m:Text text='" + aCells[i].txt + "'/> \n" +
 							"	        </m:Column> \n";
 						sCels += "" +
-							"			   <m:Text text=\"{path:'DataDetailModel>" + aCells[i] + "'}\"/> \n";
+							"			   <m:Text text=\"{path:'DataDetailModel>" + aCells[i].col + "'}\"/> \n";
 					}
 					// var oViewModel = this.getModel("detailView");
 					oViewModel.setProperty("/setItems", sSetName);
-					
+
 					var oModelX = new sap.ui.model.xml.XMLModel();
 					oModelX.attachRequestCompleted(function () {
 						var xmlStr = oModelX.getXML();
@@ -240,7 +252,7 @@ sap.ui.define([
 		// 		});
 		// 	}
 		// },
-		
+
 		/**
 		 * Binds the view to the object path. Makes sure that detail view displays
 		 * a busy indicator while data for the corresponding element binding is loaded.
@@ -304,7 +316,7 @@ sap.ui.define([
 			var iOriginalViewBusyDelay = this.getView().getBusyIndicatorDelay(),
 				oViewModel = this.getModel("detailView");
 			//	oLineItemTable = this.byId("lineItemsList"),
-				//iOriginalLineItemTableBusyDelay = oLineItemTable.getBusyIndicatorDelay();
+			//iOriginalLineItemTableBusyDelay = oLineItemTable.getBusyIndicatorDelay();
 
 			// Make sure busy indicator is displayed immediately when
 			// detail view is displayed for the first time
@@ -346,87 +358,87 @@ sap.ui.define([
 				// reset to previous layout
 				this.getModel("appView").setProperty("/layout", this.getModel("appView").getProperty("/previousLayout"));
 			}
-		}, 
-		
+		},
+
 		//unused 
 		//auch wieder hier einen Dialog einbauen
-		onPressDeleteDetail: function(oEvent) {
-			var oDataModel	= this.getModel("DataDetailModel"), 
-				aKeys		= this.getKeys(this._oEntity),
-				oItem, 
-				iIndex, 
+		onPressDeleteDetail: function (oEvent) {
+			var oDataModel = this.getModel("DataDetailModel"),
+				aKeys = this.getKeys(this._oEntity),
+				oItem,
+				iIndex,
 				sObjectPath,
-				aVals = [], 
+				aVals = [],
 				oKeyValuePair = {};
-			
+
 			//get Key properties of the entity
 			//aber keine Werte mit befüllen
-			
-			for(var i=0; i<this._aSelectedItems.length; i++) {
-					iIndex	= this._aSelectedItems[i];
-					oItem	= oDataModel.getData().DataSet[iIndex];
+
+			for (var i = 0; i < this._aSelectedItems.length; i++) {
+				iIndex = this._aSelectedItems[i];
+				oItem = oDataModel.getData().DataSet[iIndex];
 				// oDataModel.getData().DataSet.splice(iIndex, 1);
 				// oDataModel.refresh(true);
-				for(var b=0; b<aKeys.length; b++) {
+				for (var b = 0; b < aKeys.length; b++) {
 					aVals.push(oItem[aKeys[b]]);
 				}
-				
+
 				oKeyValuePair = this.concatJSON(aKeys, aVals);
 				aVals = [];
-				
+
 				sObjectPath = this.getModel().createKey(this._sSetName,
-							oKeyValuePair
-						);
-				
+					oKeyValuePair
+				);
+
 				this.getModel().remove("/" + sObjectPath, {
-							success: function () {
-								oDataModel.getData().DataSet.splice(iIndex, 1);
-								oDataModel.refresh(true);
-								MessageToast.show("Items deleted");
-								
-							}.bind(this),
-							error: function (oError) {
-								MessageToast.show("Delete Error");
-						
-							}.bind(this)
-						});
-						
-					this.getModel().submitChanges({});
-				
-					//oDataModel.getData().DataSet.splice(iIndex, 1);
-					//oDataModel.refresh(true);
-				
+					success: function () {
+						oDataModel.getData().DataSet.splice(iIndex, 1);
+						oDataModel.refresh(true);
+						MessageToast.show("Items deleted");
+
+					}.bind(this),
+					error: function (oError) {
+						MessageToast.show("Delete Error");
+
+					}.bind(this)
+				});
+
+				this.getModel().submitChanges({});
+
+				//oDataModel.getData().DataSet.splice(iIndex, 1);
+				//oDataModel.refresh(true);
+
 			}
 			//Uncheck all Items 
-			
+
 			this.aSelectedItems = [];
-			
+
 		},
-		
-		onSelectionChangedDetail: function(oEvent) {
+
+		onSelectionChangedDetail: function (oEvent) {
 			//var bSelected =	oEvent.getSource().getSelectedItem().getSelected(),
-			var	aSelectedContextPaths = oEvent.getSource().getSelectedContextPaths(), 
+			var aSelectedContextPaths = oEvent.getSource().getSelectedContextPaths(),
 				aIndex = [];
-				for(var i=0; i<aSelectedContextPaths.length; i++) {
-					//vielleicht reicht es auch hier String.split anzuwenden
-					aIndex.push(aSelectedContextPaths[i].match(/\d+/g).map(Number)[0]);
-				}
-				this._aSelectedItems = aIndex;
+			for (var i = 0; i < aSelectedContextPaths.length; i++) {
+				//vielleicht reicht es auch hier String.split anzuwenden
+				aIndex.push(aSelectedContextPaths[i].match(/\d+/g).map(Number)[0]);
+			}
+			this._aSelectedItems = aIndex;
 		},
-	
+
 		//Navigate to Object View
-		onTableItemPress: function(oEvent) {
+		onTableItemPress: function (oEvent) {
 			var sPath = oEvent.getSource().getBindingContextPath();
-		
+
 			this.getModel("appView").setProperty("/layout", "ThreeColumnsEndExpanded");
-			
+
 			this.getRouter().navTo("detailObject", {
-				Set:this._sSetName,
-				EntityName:this._oEntityName,
+				Set: this._sSetName,
+				EntityName: this._oEntityName,
 				Index: sPath.match(/\d+/g).map(Number)[0]
 			});
 		},
-		
+
 		//ADD
 		onPressAdd: function (oEvent) {
 			var oFormContainer,
@@ -485,7 +497,7 @@ sap.ui.define([
 				oFormContainer.addFormElement(oFormElement);
 			}
 		},
-		
+
 		//Dialog-Handler
 		//
 		onPressCancel: function (oEvent) {
@@ -521,7 +533,7 @@ sap.ui.define([
 			}
 			this.getModel("newDataModel").setData({});
 		},
-		
+
 		onInputLiveChange: function (oEvent) {
 			var sType = oEvent.getSource().getType(),
 				oValue = oEvent.getParameters().newValue,
@@ -548,7 +560,7 @@ sap.ui.define([
 				this.getModel("newDataModel").setProperty("/" + oLabel, oEvent.getSource().getDateValue());
 			}
 		}
-		
+
 	});
 
 });

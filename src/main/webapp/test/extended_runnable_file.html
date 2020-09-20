@@ -58,7 +58,7 @@ bRunWithMock = false;
 }
 if (bRunWithMock) {
 jQuery.sap.require('sap.ui.core.util.MockServer');
-var uri = '/odata.svc/';
+var uri = 'http://localhost:8080/odata.svc/';
 var oMock = new sap.ui.core.util.MockServer({rootUri : uri});
 var _sAppModulePath = "com.mjzsoft.demo.ui5.GeneralODataViewer/";
 var sMetadataPath = "localService/metadata.xml";
