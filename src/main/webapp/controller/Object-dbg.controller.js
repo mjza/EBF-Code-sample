@@ -252,7 +252,8 @@ sap.ui.define([
 				oFormElement,
 				sProperty,
 				sText,
-				sType;
+				sType,
+				bExclude;
 
 			if (!this._oAddDialog) {
 				this._oAddDialog = sap.ui.xmlfragment("object", "com.mjzsoft.demo.ui5.GeneralODataViewer.view.Add", this);
@@ -267,6 +268,8 @@ sap.ui.define([
 				sProperty = this._oEntity.property[i].name;
 				sText = this._oEntity.property[i].name;
 				sType = this._oEntity.property[i].type;
+				
+				bExclude = false;
 
 				if (this._oEntity.property[i].extensions) {
 					for (var j = 0; j < this._oEntity.property[i].extensions.length; j++) {
@@ -275,6 +278,16 @@ sap.ui.define([
 							break;
 						}
 					}
+					for (j = 0; j < this._oEntity.property[i].extensions.length; j++) {
+						if (this._oEntity.property[i].extensions[j].name === "creatable") {
+							bExclude = (this._oEntity.property[i].extensions[j].value === "false");
+							break;
+						}
+					}
+				}
+				
+				if(bExclude){
+					continue;
 				}
 
 				switch (sType) {
