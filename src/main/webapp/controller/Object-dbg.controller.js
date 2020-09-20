@@ -2,8 +2,9 @@ sap.ui.define([
 	"sap/m/MessageToast",
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/Device",
+	"sap/ui/core/format/NumberFormat",
 	"com/mjzsoft/demo/ui5/GeneralODataViewer/controller/BaseController"
-], function (MessageToast, JSONModel, Device, BaseController) {
+], function (MessageToast, JSONModel, Device, NumberFormat, BaseController) {
 	"use strict";
 
 	return BaseController.extend("com.mjzsoft.demo.ui5.GeneralODataViewer.controller.Object", {
@@ -134,6 +135,7 @@ sap.ui.define([
 							textLabel: sText,
 							value: "{" + oEntity.property[i].name + "}"
 						});
+						oSmartField.data("property", oEntity.property[i].name);
 						oSmartField.attachChange(this.onEditableChanged);
 						oGroupElement.addElement(oSmartField);
 						oGroup.addGroupElement(oGroupElement);
@@ -156,6 +158,7 @@ sap.ui.define([
 													//value: "{"+ oEntity.property[i].name + "/"+ aHelperArray[z].name + "}"
 											});
 											//oSmartField.setValue("Bahnste");
+											oSmartField.data("property", aHelperArray[z].name);
 											oSmartField.attachChange(this.onEditableChanged);
 											oGroupElement.addElement(oSmartField);
 											oGroup.addGroupElement(oGroupElement);
@@ -172,7 +175,7 @@ sap.ui.define([
 		},
 
 		onEditableChanged: function (oEvent) {
-			var sProperty = oEvent.getSource().getTextLabel(),
+			var sProperty = oEvent.getSource().data("property"),
 				oNewValue = oEvent.getParameters().newValue,
 				sDataType = this.getDataType();
 
@@ -182,8 +185,9 @@ sap.ui.define([
 					oNewValue = Number(oNewValue);
 				}
 
-				if (sDataType.includes("Decimal")) {
-					oNewValue = parseFloat(oNewValue);
+				if (sDataType.includes("Decimal") || sDataType.includes("Double")) {
+					var oNumberFormat = NumberFormat.getFloatInstance();
+					oNewValue = oNumberFormat.parse(oNewValue);
 				}
 
 				if (sDataType.includes("Date")) {
@@ -388,7 +392,7 @@ sap.ui.define([
 				oDataModel = this.getModel("DataDetailModel"),
 				oModel = this.getModel();
 			oModel.create("/" + this._setName, oProperties, {
-				success: function(oData, oResponse){
+				success: function (oData, oResponse) {
 					oDataModel.getData().DataSet.push(oData);
 					oDataModel.refresh(true);
 					MessageToast.show("Successfully added a new Object");
@@ -409,7 +413,7 @@ sap.ui.define([
 				}
 			}
 			this.getModel("newDataModel").setData({});
-			
+
 		},
 
 		//NothwindModel.Customer 

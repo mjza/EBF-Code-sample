@@ -41,6 +41,20 @@ public class Employee implements Serializable {
 	@Column(name = "lastname", nullable=false, length=255)
     private String lastname;
 	
+	@Sap(filterable=true, sortable=true, creatable=true, updatable=true)
+	@SAPLineItem
+	@Column(name = "email", nullable=true, length=255)
+    private String email;
+	
+	@Sap(filterable=true, sortable=false, creatable=true, updatable=true)
+	@SAPLineItem
+	@Column(name = "address", nullable=true, length=255)
+    private String address;
+	
+	@Sap(filterable=true, sortable=true, creatable=true, updatable=true)
+	@SAPLineItem
+	@Column(name = "salary", nullable=false)
+    private double salary;	
 	
 	//bi-directional many-to-one association to Qtype
 	@Sap(filterable=true, sortable=true, creatable=true, updatable=true)
@@ -74,6 +88,30 @@ public class Employee implements Serializable {
 
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
+	public double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(double salary) {
+		this.salary = salary;
 	}
 	
 	public Company getCompany() {

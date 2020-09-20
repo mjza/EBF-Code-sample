@@ -1,7 +1,7 @@
 {
     "resources": [
         {
-            "name": "model/formatter.js"
+            "name": "controller/ErrorHandler.js"
         },
         {
             "name": "localService/mockdata/Companies.json"
@@ -10,10 +10,14 @@
             "name": "manifest.json"
         },
         {
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
+        },
+        {
             "name": "model/models.js"
         },
         {
-            "name": "localService/mockdata/Employees.json"
+            "name": "model/formatter.js"
         },
         {
             "name": "localService/mockserver.js"
@@ -37,7 +41,7 @@
             "name": "controller/ListSelector.js"
         },
         {
-            "name": "controller/ErrorHandler.js"
+            "name": "localService/mockdata/Employees.json"
         },
         {
             "name": "controller/DetailObjectNotFound.js"
@@ -63,6 +67,10 @@
         {
             "name": "Component-preload.js",
             "merged": true
+        },
+        {
+            "name": "controller/BaseController-dbg.js",
+            "isDebug": true
         },
         {
             "name": "model/models-dbg.js",
@@ -114,10 +122,6 @@
         },
         {
             "name": "controller/Detail-dbg.controller.js",
-            "isDebug": true
-        },
-        {
-            "name": "controller/BaseController-dbg.js",
             "isDebug": true
         },
         {
@@ -175,10 +179,6 @@
         },
         {
             "name": "WEB-INF/web.xml"
-        },
-        {
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
         },
         {
             "name": "index.html"

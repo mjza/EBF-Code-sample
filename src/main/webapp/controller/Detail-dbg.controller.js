@@ -489,7 +489,6 @@ sap.ui.define([
 				default:
 					oControl = new sap.m.Input({
 						value: "{newDataModel>/" + sProperty + "}",
-						//value: "{path:'newDataModel>/RegionID', type:'sap.ui.model.type.Int'}",
 						type: this.extractInputType(this._oEntity.property[i].type)
 					});
 					oControl.attachLiveChange(this.onInputLiveChange);
@@ -527,7 +526,7 @@ sap.ui.define([
 				oDataModel = this.getModel("DataDetailModel"),
 				oModel = this.getModel();
 			oModel.create("/" + this._sSetName, oProperties, {
-				success: function(oData, oResponse){
+				success: function (oData, oResponse) {
 					oDataModel.getData().DataSet.push(oData);
 					oDataModel.refresh(true);
 					MessageToast.show("Successfully added a new Object");
@@ -535,7 +534,7 @@ sap.ui.define([
 			});
 			oModel.submitChanges({
 				success: function () {
-					
+
 				},
 				error: function () {
 					MessageToast.show("Error");

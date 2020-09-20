@@ -61,7 +61,7 @@ sap.ui.define([
 				this.getRouter().navTo("master", {}, true);
 			}
 		},
-		
+
 		//extract Entity from metadata
 		extractEntity: function (sEntityName, oModel) {
 			var aRes = sEntityName.split("."),
@@ -69,13 +69,13 @@ sap.ui.define([
 				sEntity,
 				oEntity,
 				oMetaData = oModel.getServiceMetadata();
-				for(var k=0; k<aRes.length - 1; k++){
-					sNamespace += aRes[k] + ".";
-				}
-				if(aRes.length){
-					sEntity = aRes[aRes.length - 1];
-					sNamespace = sNamespace.slice(0, -1);
-				}
+			for (var k = 0; k < aRes.length - 1; k++) {
+				sNamespace += aRes[k] + ".";
+			}
+			if (aRes.length) {
+				sEntity = aRes[aRes.length - 1];
+				sNamespace = sNamespace.slice(0, -1);
+			}
 			for (var j = 0; j < oMetaData.dataServices.schema.length && aRes.length; j++) {
 				if (oMetaData.dataServices.schema[j].namespace === sNamespace) {
 					var aEntities = oMetaData.dataServices.schema[j].entityType;
@@ -89,10 +89,10 @@ sap.ui.define([
 				}
 			}
 			return oEntity;
-		}, 
+		},
 		//returns complex types from metadata
-		extractComplexTypes: function(sEntityName, oModel) {
-				var aRes = sEntityName.split("."),
+		extractComplexTypes: function (sEntityName, oModel) {
+			var aRes = sEntityName.split("."),
 				sNamespace = aRes[0],
 				//sEntity = aRes[1],
 				aComplexTypes,
@@ -100,12 +100,11 @@ sap.ui.define([
 			for (var j = 0; j < oMetaData.dataServices.schema.length; j++) {
 				if (oMetaData.dataServices.schema[j].namespace === sNamespace) {
 					aComplexTypes = oMetaData.dataServices.schema[j].complexType;
-					}
 				}
+			}
 			return aComplexTypes;
 		},
-		
-		
+
 		//returns the keys of the oEntity
 		getKeys: function (oEntity) {
 			var sKeys = [];
@@ -115,24 +114,27 @@ sap.ui.define([
 			}
 			return sKeys;
 		},
-		
+
 		//just for EDM. Type
-		extractInputType: function(sType) {
+		extractInputType: function (sType) {
 			// var oType;
-			
+
 			switch (sType) {
-				case "Edm.Int32": 
-					return sap.m.InputType.Number;
-				case "Edm.Int16":
-					return sap.m.InputType.Number;
-				case "Edm.Decimal":
-					return sap.m.InputType.Number;
-				case "Edm.String":
-					return sap.m.InputType.Text;
-				default: 
-				return sap.m.InputType.Text; 
+			case "Edm.Int64":
+			case "Edm.Int32":
+			case "Edm.Int16":
+			case "Edm.Int":
+			case "Edm.Decimal":
+			case "Edm.Double":
+			case "Edm.Byte":
+			case "Edm.SByte":
+				return sap.m.InputType.Number;
+			case "Edm.String":
+				return sap.m.InputType.Text;
+			default:
+				return sap.m.InputType.Text;
 			}
-		}, 
+		},
 		//returns JSON object
 		concatJSON: function (names, values) {
 			var result = {},
@@ -141,19 +143,19 @@ sap.ui.define([
 				result[names[i]] = values[i];
 			return result;
 		},
-		
-		convertType: function(oObject, sDataType) {
-			
+
+		convertType: function (oObject, sDataType) {
+
 			//sap.ui.model.type.Integer
 			if (sDataType.includes("Int")) {
-					return Number(oObject);
-				}
-				
-			if(sDataType.includes("Date")) {
-					oObject = new Date(oObject);
-					return oObject === "Invalid Date" ? new Date(oObject.split("/").reserve()) : oObject;
-				}
-			if(sDataType.include("String")) {
+				return Number(oObject);
+			}
+
+			if (sDataType.includes("Date")) {
+				oObject = new Date(oObject);
+				return oObject === "Invalid Date" ? new Date(oObject.split("/").reserve()) : oObject;
+			}
+			if (sDataType.include("String")) {
 				return String(oObject);
 			}
 		}

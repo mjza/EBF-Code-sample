@@ -33,9 +33,9 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 @EnableWebSecurity(debug = true)
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityDevConfig extends WebSecurityConfigurerAdapter {
 
-	private static final Logger logger = LoggerFactory.getLogger(WebSecurityConfig.class);
+	private static final Logger logger = LoggerFactory.getLogger(WebSecurityDevConfig.class);
     
     @Override
     @Bean
