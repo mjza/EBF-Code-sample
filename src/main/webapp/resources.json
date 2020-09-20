@@ -1,29 +1,28 @@
 {
     "resources": [
         {
+            "name": "model/formatter.js"
+        },
+        {
             "name": "localService/mockdata/Companies.json"
         },
         {
             "name": "manifest.json"
         },
         {
-            "name": "localService/mockdata/Employees.json"
-        },
-        {
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
-        },
-        {
             "name": "model/models.js"
         },
         {
-            "name": "model/formatter.js"
+            "name": "localService/mockdata/Employees.json"
         },
         {
             "name": "localService/mockserver.js"
         },
         {
             "name": "js/jszip.min.js"
+        },
+        {
+            "name": "js/XML2JSON.js"
         },
         {
             "name": "controller/Object.controller.js"
@@ -66,10 +65,6 @@
             "merged": true
         },
         {
-            "name": "controller/Master-dbg.controller.js",
-            "isDebug": true
-        },
-        {
             "name": "model/models-dbg.js",
             "isDebug": true
         },
@@ -86,11 +81,19 @@
             "isDebug": true
         },
         {
+            "name": "js/XML2JSON-dbg.js",
+            "isDebug": true
+        },
+        {
             "name": "controller/Object-dbg.controller.js",
             "isDebug": true
         },
         {
             "name": "controller/NotFound-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "controller/Master-dbg.controller.js",
             "isDebug": true
         },
         {
@@ -172,6 +175,10 @@
         },
         {
             "name": "WEB-INF/web.xml"
+        },
+        {
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         },
         {
             "name": "index.html"

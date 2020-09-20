@@ -113,6 +113,12 @@ sap.ui.define([
 			// update the master list object counter after new data is loaded
 			this._updateListItemCount(oEvent.getParameter("total"));
 		},
+		
+		onLiveSearch: function (oEvent) {
+			if(oEvent.getParameter("newValue").length === 0){
+				this.onSearch(oEvent);
+			}
+		},
 		/**
 		 * Event handler for the master search field. Applies current
 		 * filter value and triggers a new search. If the search field's
@@ -132,7 +138,7 @@ sap.ui.define([
 			}
 			var sQuery = oEvent.getParameter("query");
 			if (sQuery) {
-				this._oListFilterState.aSearch = [new Filter("CategoryName", FilterOperator.Contains, sQuery)];
+				this._oListFilterState.aSearch = [new Filter("SetName", FilterOperator.Contains, sQuery)];
 			} else {
 				this._oListFilterState.aSearch = [];
 			}
@@ -288,7 +294,7 @@ sap.ui.define([
 				delay: 0,
 				title: this.getResourceBundle().getText("masterTitleCount", [0]),
 				noDataText: this.getResourceBundle().getText("masterListNoDataText"),
-				sortBy: "CategoryName",
+				sortBy: "SetName",
 				groupBy: "None"
 			});
 		},
@@ -334,7 +340,7 @@ sap.ui.define([
 			this._oList.getBinding("items").filter(aFilters, "Application");
 			// changes the noDataText of the list in case there are no filter results
 			if (aFilters.length !== 0) {
-				oViewModel.setProperty("/noDataText", this.getResourceBundle().getTeGeneralODataViewerxt("masterListNoDataWithFilterOrSearchText"));
+				oViewModel.setProperty("/noDataText", this.getResourceBundle().getText("masterListNoDataWithFilterOrSearchText"));
 			} else if (this._oListFilterState.aSearch.length > 0) {
 				// only reset the no data text to default when no new search was triggered
 				oViewModel.setProperty("/noDataText", this.getResourceBundle().getText("masterListNoDataText"));

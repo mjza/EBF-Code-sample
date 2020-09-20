@@ -247,10 +247,11 @@ sap.ui.define([
 				oControl,
 				oFormElement,
 				sProperty,
+				sText,
 				sType;
 
 			if (!this._oAddDialog) {
-				this._oAddDialog = sap.ui.xmlfragment("com.mjzsoft.demo.ui5.GeneralODataViewer.view.Add", this);
+				this._oAddDialog = sap.ui.xmlfragment("object", "com.mjzsoft.demo.ui5.GeneralODataViewer.view.Add", this);
 				this.getView().addDependent(this._oAddDialog);
 			}
 
@@ -260,7 +261,17 @@ sap.ui.define([
 
 			for (var i = 0; i < this._oEntity.property.length; i++) {
 				sProperty = this._oEntity.property[i].name;
+				sText = this._oEntity.property[i].name;
 				sType = this._oEntity.property[i].type;
+
+				if (this._oEntity.property[i].extensions) {
+					for (var j = 0; j < this._oEntity.property[i].extensions.length; j++) {
+						if (this._oEntity.property[i].extensions[j].name === "label") {
+							sText = this._oEntity.property[i].extensions[j].value;
+							break;
+						}
+					}
+				}
 
 				switch (sType) {
 				case "Edm.Boolean":
@@ -280,7 +291,6 @@ sap.ui.define([
 				default:
 					oControl = new sap.m.Input({
 						value: "{newDataModel>/" + sProperty + "}",
-						//value: "{path:'newDataModel>/RegionID', type:'sap.ui.model.type.Int'}",
 						type: this.extractInputType(this._oEntity.property[i].type)
 					});
 					oControl.attachLiveChange(this.onInputLiveChange);
@@ -293,37 +303,37 @@ sap.ui.define([
 				}
 
 				oFormElement = new sap.ui.layout.form.FormElement({
-					label: sProperty,
+					label: sText,
 					fields: oControl
 				});
+				oFormElement.data("property", sProperty);
 				oFormContainer.addFormElement(oFormElement);
 			}
 		},
 
 		onInputLiveChange: function (oEvent) {
 			var sType = oEvent.getSource().getType(),
-				oValue = oEvent.getParameters().newValue,
-				sLabelName = oEvent.getSource().getParent().getLabel();
+				oValue = oEvent.getParameters().newValue;
 
 			if (sType === "Number") {
 				oValue = Number(oValue);
 			}
-			this.getModel("newDataModel").setProperty("/" + sLabelName, oValue);
+			this.getModel("newDataModel").setProperty("/" + oEvent.getSource().getParent().data("property"), oValue);
 		},
 
 		onSelectionChange: function (oEvent) {
 			var oSource = oEvent.getSource();
-			this.getModel("newDataModel").setProperty("/" + oSource.getParent().getLabel(), oSource.getSelected());
+			this.getModel("newDataModel").setProperty("/" + oSource.getParent().getLabel().data("property"), oSource.getSelected());
 		},
 
 		onChangeDatePicker: function (oEvent) {
 			//var	dNewValue = new Date(oEvent.getParameter("newValue"));
 			var bValid = oEvent.getParameter("valid"),
-				oLabel;
+				sProperty;
 			if (bValid) {
-				oLabel = oEvent.getSource().getParent().getLabel();
+				sProperty = oEvent.getSource().getParent().data("property");
 				//ditingush between new model and current model
-				this.getModel("newDataModel").setProperty("/" + oLabel, oEvent.getSource().getDateValue());
+				this.getModel("newDataModel").setProperty("/" + sProperty, oEvent.getSource().getDateValue());
 			}
 		},
 
@@ -377,13 +387,17 @@ sap.ui.define([
 			var oProperties = this.getModel("newDataModel").getData(),
 				oDataModel = this.getModel("DataDetailModel"),
 				oModel = this.getModel();
-			oModel.create("/" + this._setName, oProperties);
-			oModel.submitChanges({
-				success: function () {
-					oDataModel.getData().DataSet.push(oProperties);
+			oModel.create("/" + this._setName, oProperties, {
+				success: function(oData, oResponse){
+					oDataModel.getData().DataSet.push(oData);
 					oDataModel.refresh(true);
 					MessageToast.show("Successfully added a new Object");
-				},
+				}
+			});
+			oModel.submitChanges({
+				success: function () {
+					this.onNavBack();
+				}.bind(this),
 				error: function () {
 					MessageToast.show("Error");
 				}
@@ -395,7 +409,7 @@ sap.ui.define([
 				}
 			}
 			this.getModel("newDataModel").setData({});
-			this.onNavBack();
+			
 		},
 
 		//NothwindModel.Customer 
