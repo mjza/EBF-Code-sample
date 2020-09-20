@@ -14,4 +14,5 @@ public @interface Sap {
 	boolean filterable() default false;
 	boolean creatable() default false;
 	boolean updatable() default false;
+	boolean deletable() default false;
 }

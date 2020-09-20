@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- https://olingo.apache.org/doc/odata2/tutorials/jparedefinemetadata.html -->
+<JPAEDMMappingModel
+	xmlns="http://www.apache.org/olingo/odata2/jpa/processor/api/model/mapping">
+	<PersistenceUnit name="Model">
+		<EDMSchemaNamespace>com.mjzsoft</EDMSchemaNamespace>
+		<JPAEntityTypes>
+			<JPAEntityType name="Company">
+				<EDMEntityType>Company</EDMEntityType>
+				<EDMEntitySet>Companies</EDMEntitySet>
+				<JPARelationships>
+					<JPARelationship name="employees">Employees</JPARelationship>
+				</JPARelationships>
+			</JPAEntityType>
+			<JPAEntityType name="Employee">
+				<EDMEntityType>Employee</EDMEntityType>
+				<EDMEntitySet>Employees</EDMEntitySet>
+				<JPAAttributes>
+					<JPAAttribute name="company">CompanyId</JPAAttribute>
+				</JPAAttributes>				
+				<JPARelationships>
+					<JPARelationship name="company">Company</JPARelationship>
+				</JPARelationships>
+			</JPAEntityType>
+		</JPAEntityTypes>
+	</PersistenceUnit>
+</JPAEDMMappingModel>

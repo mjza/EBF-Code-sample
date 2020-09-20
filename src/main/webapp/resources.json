@@ -1,13 +1,17 @@
 {
     "resources": [
         {
-            "name": "localService/mockdata/MemberSet.json"
+            "name": "controller/ListSelector-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "localService/mockdata/Companies.json"
         },
         {
             "name": "manifest.json"
         },
         {
-            "name": "localService/mockdata/NumberSet.json"
+            "name": "localService/mockdata/Employees.json"
         },
         {
             "name": "model/models.js"
@@ -62,8 +66,8 @@
             "merged": true
         },
         {
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
+            "name": "Component-dbg.js",
+            "isDebug": true
         },
         {
             "name": "model/models-dbg.js",
@@ -94,8 +98,8 @@
             "isDebug": true
         },
         {
-            "name": "controller/ListSelector-dbg.js",
-            "isDebug": true
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         },
         {
             "name": "controller/ErrorHandler-dbg.js",
@@ -119,10 +123,6 @@
         },
         {
             "name": "controller/App-dbg.controller.js",
-            "isDebug": true
-        },
-        {
-            "name": "Component-dbg.js",
             "isDebug": true
         },
         {
@@ -165,7 +165,13 @@
             "name": "localService/metadata.xml"
         },
         {
+            "name": "icon/favicon.ico"
+        },
+        {
             "name": "css/style.css"
+        },
+        {
+            "name": "WEB-INF/web.xml"
         },
         {
             "name": "index.html"

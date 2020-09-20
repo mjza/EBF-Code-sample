@@ -17,16 +17,11 @@ public class ODataContextUtil {
 		return oDataContext.get();
 	}
 	
-	public static ResourceBundle getResourceBundle(String name) {
+	public static ResourceBundle getResourceBundle(String name, Locale locale) {
 		ResourceBundle i18n = null;
 		if (oDataContext.get() != null) {
-	 		for (Locale locale : oDataContext.get().getAcceptableLanguages()) {
-				i18n = ResourceBundle.getBundle(name, locale);
-				if (i18n.getLocale().equals(locale)) break;
-			}
-			return i18n;
-		} else {
-			return null;
+	 		i18n = ResourceBundle.getBundle(name, locale);
 		}
+		return i18n;
 	}
 }

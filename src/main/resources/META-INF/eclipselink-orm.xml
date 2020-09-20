@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.5" xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/orm http://www.eclipse.org/eclipselink/xsds/eclipselink_orm_2_5.xsd">
+    <named-query name="Company.findAll">
+        <query>select c from Company c</query>
+    </named-query>
+    <named-query name="Employee.findAll">
+        <query>select e from Employee e</query>
+    </named-query>
+	<entity class="com.mjzsoft.odata.models.Company" access="VIRTUAL">
+		<table name="companies"/>
+		<attributes>
+			<id name="id" attribute-type="String">
+			</id>
+			<basic name="name" attribute-type="String">
+			</basic>
+			<one-to-many name="employees" mapped-by="company" target-entity="com.mjzsoft.odata.models.Employee" attribute-type="java.util.List">
+			</one-to-many>
+		</attributes>
+	</entity>
+	<entity class="com.mjzsoft.odata.models.Employee" access="VIRTUAL">
+		<table name="employees"/>
+		<attributes>
+			<id name="id" attribute-type="int">
+			</id>
+			<basic name="firstname" attribute-type="String">
+			</basic>
+			<basic name="lastname" attribute-type="String">
+			</basic>
+			<many-to-one name="company" target-entity="com.mjzsoft.odata.models.Company">
+			</many-to-one>
+		</attributes>
+	</entity>
+</entity-mappings>

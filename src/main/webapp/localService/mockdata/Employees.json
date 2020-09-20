@@ -1,0 +1,155 @@
+{
+	"d": {
+		"results": [{
+			"__metadata": {
+				"id": "http://localhost:8080/odata.svc/Employees(1)",
+				"uri": "http://localhost:8080/odata.svc/Employees(1)",
+				"type": "com.mjzsoft.Employee"
+			},
+			"CompanyId": "C1",
+			"Firstname": "EF1",
+			"Id": 1,
+			"Lastname": "LN1",
+			"Company": {
+				"__deferred": {
+					"uri": "http://localhost:8080/odata.svc/Employees(1)/Company"
+				}
+			}
+		}, {
+			"__metadata": {
+				"id": "http://localhost:8080/odata.svc/Employees(2)",
+				"uri": "http://localhost:8080/odata.svc/Employees(2)",
+				"type": "com.mjzsoft.Employee"
+			},
+			"CompanyId": "C1",
+			"Firstname": "EF2",
+			"Id": 2,
+			"Lastname": "LN2",
+			"Company": {
+				"__deferred": {
+					"uri": "http://localhost:8080/odata.svc/Employees(2)/Company"
+				}
+			}
+		}, {
+			"__metadata": {
+				"id": "http://localhost:8080/odata.svc/Employees(3)",
+				"uri": "http://localhost:8080/odata.svc/Employees(3)",
+				"type": "com.mjzsoft.Employee"
+			},
+			"CompanyId": "C1",
+			"Firstname": "EF3",
+			"Id": 3,
+			"Lastname": "LN3",
+			"Company": {
+				"__deferred": {
+					"uri": "http://localhost:8080/odata.svc/Employees(3)/Company"
+				}
+			}
+		}, {
+			"__metadata": {
+				"id": "http://localhost:8080/odata.svc/Employees(4)",
+				"uri": "http://localhost:8080/odata.svc/Employees(4)",
+				"type": "com.mjzsoft.Employee"
+			},
+			"CompanyId": "C2",
+			"Firstname": "EF4",
+			"Id": 4,
+			"Lastname": "LN4",
+			"Company": {
+				"__deferred": {
+					"uri": "http://localhost:8080/odata.svc/Employees(4)/Company"
+				}
+			}
+		}, {
+			"__metadata": {
+				"id": "http://localhost:8080/odata.svc/Employees(5)",
+				"uri": "http://localhost:8080/odata.svc/Employees(5)",
+				"type": "com.mjzsoft.Employee"
+			},
+			"CompanyId": "C2",
+			"Firstname": "EF5",
+			"Id": 5,
+			"Lastname": "LN5",
+			"Company": {
+				"__deferred": {
+					"uri": "http://localhost:8080/odata.svc/Employees(5)/Company"
+				}
+			}
+		}, {
+			"__metadata": {
+				"id": "http://localhost:8080/odata.svc/Employees(6)",
+				"uri": "http://localhost:8080/odata.svc/Employees(6)",
+				"type": "com.mjzsoft.Employee"
+			},
+			"CompanyId": "C2",
+			"Firstname": "EF6",
+			"Id": 6,
+			"Lastname": "LN6",
+			"Company": {
+				"__deferred": {
+					"uri": "http://localhost:8080/odata.svc/Employees(6)/Company"
+				}
+			}
+		}, {
+			"__metadata": {
+				"id": "http://localhost:8080/odata.svc/Employees(7)",
+				"uri": "http://localhost:8080/odata.svc/Employees(7)",
+				"type": "com.mjzsoft.Employee"
+			},
+			"CompanyId": "C3",
+			"Firstname": "EF7",
+			"Id": 7,
+			"Lastname": "LN7",
+			"Company": {
+				"__deferred": {
+					"uri": "http://localhost:8080/odata.svc/Employees(7)/Company"
+				}
+			}
+		}, {
+			"__metadata": {
+				"id": "http://localhost:8080/odata.svc/Employees(8)",
+				"uri": "http://localhost:8080/odata.svc/Employees(8)",
+				"type": "com.mjzsoft.Employee"
+			},
+			"CompanyId": "C3",
+			"Firstname": "EF8",
+			"Id": 8,
+			"Lastname": "LN8",
+			"Company": {
+				"__deferred": {
+					"uri": "http://localhost:8080/odata.svc/Employees(8)/Company"
+				}
+			}
+		}, {
+			"__metadata": {
+				"id": "http://localhost:8080/odata.svc/Employees(9)",
+				"uri": "http://localhost:8080/odata.svc/Employees(9)",
+				"type": "com.mjzsoft.Employee"
+			},
+			"CompanyId": "C3",
+			"Firstname": "EF9",
+			"Id": 9,
+			"Lastname": "LN9",
+			"Company": {
+				"__deferred": {
+					"uri": "http://localhost:8080/odata.svc/Employees(9)/Company"
+				}
+			}
+		}, {
+			"__metadata": {
+				"id": "http://localhost:8080/odata.svc/Employees(10)",
+				"uri": "http://localhost:8080/odata.svc/Employees(10)",
+				"type": "com.mjzsoft.Employee"
+			},
+			"CompanyId": "C3",
+			"Firstname": "EF10",
+			"Id": 10,
+			"Lastname": "LN10",
+			"Company": {
+				"__deferred": {
+					"uri": "http://localhost:8080/odata.svc/Employees(10)/Company"
+				}
+			}
+		}]
+	}
+}

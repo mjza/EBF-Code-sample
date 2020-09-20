@@ -7,6 +7,7 @@ import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
@@ -20,12 +21,12 @@ import org.apache.olingo.odata2.api.edm.provider.Property;
 import org.apache.olingo.odata2.api.edm.provider.Schema;
 import org.apache.olingo.odata2.jpa.processor.api.model.JPAEdmSchemaView;
 import org.apache.olingo.odata2.jpa.processor.core.model.JPAEdmMappingImpl;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 import com.mjzsoft.odata.annotations.SAPLineItem;
 import com.mjzsoft.odata.annotations.Sap;
 
 public class JPAEdmExtension implements org.apache.olingo.odata2.jpa.processor.api.model.JPAEdmExtension {
-
 	public static final String MAPPING_MODEL = "odata-mapping.xml";
 	public static final String SAP_NAMESPACE = "http://www.sap.com/Protocols/SAPData";
 	public static final String SAP_PREFIX = "sap";
@@ -37,7 +38,8 @@ public class JPAEdmExtension implements org.apache.olingo.odata2.jpa.processor.a
 
 	@Override
 	public void extendJPAEdmSchema(JPAEdmSchemaView view) {
-		ResourceBundle i18n = ODataContextUtil.getResourceBundle("i18n");
+		Locale locale = LocaleContextHolder.getLocale();
+		ResourceBundle i18n = ODataContextUtil.getResourceBundle("i18n", locale);
 		final Schema edmSchema = view.getEdmSchema();
 		
 		for (EntityType entityType : edmSchema.getEntityTypes()) {
