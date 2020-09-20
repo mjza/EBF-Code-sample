@@ -53,9 +53,9 @@ sap.ui.define([
 		 */
 		onNavBack: function () {
 			var sPreviousHash = History.getInstance().getPreviousHash(),
-				oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
+				oCrossAppNavigator = sap.ushell.Container ? sap.ushell.Container.getService("CrossApplicationNavigation") : undefined;
 
-			if (sPreviousHash !== undefined || !oCrossAppNavigator.isInitialNavigation()) {
+			if (sPreviousHash !== undefined || !oCrossAppNavigator || !oCrossAppNavigator.isInitialNavigation()) {
 				history.go(-1);
 			} else {
 				this.getRouter().navTo("master", {}, true);
