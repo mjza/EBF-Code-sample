@@ -1,0 +1,46 @@
+[{
+	"__metadata": {
+		"id": "http://localhost:8080/cimply-backend-olingo-odata2-jpa-1.0.0/odata.svc/MemberSet(1)",
+		"uri": "http://localhost:8080/cimply-backend-olingo-odata2-jpa-1.0.0/odata.svc/MemberSet(1)",
+		"type": "me.cimply.Member"
+	},
+	"FirstName": "Jack",
+	"Id": 1,
+	"LastName": "Bauer"
+}, {
+	"__metadata": {
+		"id": "http://localhost:8080/cimply-backend-olingo-odata2-jpa-1.0.0/odata.svc/MemberSet(2)",
+		"uri": "http://localhost:8080/cimply-backend-olingo-odata2-jpa-1.0.0/odata.svc/MemberSet(2)",
+		"type": "me.cimply.Member"
+	},
+	"FirstName": "Chloe",
+	"Id": 2,
+	"LastName": "O'Brian"
+}, {
+	"__metadata": {
+		"id": "http://localhost:8080/cimply-backend-olingo-odata2-jpa-1.0.0/odata.svc/MemberSet(3)",
+		"uri": "http://localhost:8080/cimply-backend-olingo-odata2-jpa-1.0.0/odata.svc/MemberSet(3)",
+		"type": "me.cimply.Member"
+	},
+	"FirstName": "Kim",
+	"Id": 3,
+	"LastName": "Bauer"
+}, {
+	"__metadata": {
+		"id": "http://localhost:8080/cimply-backend-olingo-odata2-jpa-1.0.0/odata.svc/MemberSet(4)",
+		"uri": "http://localhost:8080/cimply-backend-olingo-odata2-jpa-1.0.0/odata.svc/MemberSet(4)",
+		"type": "me.cimply.Member"
+	},
+	"FirstName": "David",
+	"Id": 4,
+	"LastName": "Palmer"
+}, {
+	"__metadata": {
+		"id": "http://localhost:8080/cimply-backend-olingo-odata2-jpa-1.0.0/odata.svc/MemberSet(5)",
+		"uri": "http://localhost:8080/cimply-backend-olingo-odata2-jpa-1.0.0/odata.svc/MemberSet(5)",
+		"type": "me.cimply.Member"
+	},
+	"FirstName": "Michelle",
+	"Id": 5,
+	"LastName": "Dessler"
+}]

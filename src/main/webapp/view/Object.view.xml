@@ -1,0 +1,23 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	controllerName="com.mjzsoft.demo.ui5.GeneralODataViewer.controller.Object" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:smartForm="sap.ui.comp.smartform" xmlns:smartField="sap.ui.comp.smartfield" xmlns:semantic="sap.f.semantic">
+	<semantic:SemanticPage id="semanticObjectPage">
+		<semantic:content>
+			<smartForm:SmartForm id="idSmartForm" editTogglable="true" flexEnabled="true" busy="{objectView>/busy}" editToggled="onEditToggled">
+				<smartForm:layout>
+					<smartForm:ColumnLayout columnsM="2" columnsL="3" columnsXL="4"/>
+				</smartForm:layout>
+				<smartForm:Group id="idSmartFormGroup"></smartForm:Group>
+			</smartForm:SmartForm>
+		</semantic:content>
+		<semantic:deleteAction>
+			<semantic:DeleteAction press="onPressDelete"/>
+		</semantic:deleteAction>
+		<!--<semantic:editAction>
+			<semantic:EditAction press=""/>
+		</semantic:editAction>-->
+		<semantic:addAction>
+			<semantic:AddAction press="onPressAdd"/>
+		</semantic:addAction>
+	</semantic:SemanticPage>
+</mvc:View>

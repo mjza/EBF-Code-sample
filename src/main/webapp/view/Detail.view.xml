@@ -1,0 +1,35 @@
+<mvc:View controllerName="com.mjzsoft.demo.ui5.GeneralODataViewer.controller.Detail" xmlns:m="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.f.semantic" xmlns:footerbar="sap.ushell.ui.footerbar" xmlns:smartTable="sap.ui.comp.smarttable" xmlns:core="sap.ui.core"
+	xmlns:l="sap.ui.layout">
+	<semantic:SemanticPage id="detailPage" busy="{detailView>/busy}" busyIndicatorDelay="{detailView>/delay}" class="sapUiNoContentPadding">
+		<semantic:titleHeading>
+			<m:Title text="{detailView>/SetName}"/>
+		</semantic:titleHeading>
+		<semantic:headerContent>
+			<!--<m:ObjectAttribute title="{i18n>priceTitle}"/>
+			<m:ObjectNumber id="objectHeaderNumber" number="{ path: 'CategoryID', formatter: '.formatter.currencyValue' }"/>-->
+		</semantic:headerContent>
+		<semantic:content>
+			<l:VerticalLayout id="myLayout" busy="{detailView>/tableGenerating}" width="100%" class="mjzsoftFullHeight">
+			</l:VerticalLayout>
+		</semantic:content>
+		<!--Semantic ShareMenu Buttons-->
+		<semantic:addAction>
+			<semantic:AddAction press="onPressAdd"/>
+		</semantic:addAction>
+		<semantic:closeAction>
+			<semantic:CloseAction id="closeColumn" press="onCloseDetailPress"/>
+		</semantic:closeAction>
+		<semantic:fullScreenAction>
+			<semantic:FullScreenAction id="enterFullScreen"
+				visible="{= !${device>/system/phone} &amp;&amp; !${appView>/actionButtonsInfo/midColumn/fullScreen}}" press="toggleFullScreen"/>
+		</semantic:fullScreenAction>
+		<semantic:exitFullScreenAction>
+			<semantic:ExitFullScreenAction id="exitFullScreen"
+				visible="{= !${device>/system/phone} &amp;&amp; ${appView>/actionButtonsInfo/midColumn/fullScreen}}" press="toggleFullScreen"/>
+		</semantic:exitFullScreenAction>
+		<!--	<semantic:deleteAction>-->
+		<!--	<semantic:DeleteAction press="onPressDeleteDetail"/>-->
+		<!--</semantic:deleteAction>-->
+	</semantic:SemanticPage>
+</mvc:View>

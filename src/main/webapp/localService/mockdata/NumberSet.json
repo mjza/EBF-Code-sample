@@ -1,0 +1,41 @@
+[{
+	"__metadata": {
+		"id": "http://localhost:8080/cimply-backend-olingo-odata2-jpa-1.0.0/odata.svc/NumberSet(1)",
+		"uri": "http://localhost:8080/cimply-backend-olingo-odata2-jpa-1.0.0/odata.svc/NumberSet(1)",
+		"type": "me.cimply.Number"
+	},
+	"Id": 1,
+	"Name": "One"
+}, {
+	"__metadata": {
+		"id": "http://localhost:8080/cimply-backend-olingo-odata2-jpa-1.0.0/odata.svc/NumberSet(2)",
+		"uri": "http://localhost:8080/cimply-backend-olingo-odata2-jpa-1.0.0/odata.svc/NumberSet(2)",
+		"type": "me.cimply.Number"
+	},
+	"Id": 2,
+	"Name": "Two"
+}, {
+	"__metadata": {
+		"id": "http://localhost:8080/cimply-backend-olingo-odata2-jpa-1.0.0/odata.svc/NumberSet(3)",
+		"uri": "http://localhost:8080/cimply-backend-olingo-odata2-jpa-1.0.0/odata.svc/NumberSet(3)",
+		"type": "me.cimply.Number"
+	},
+	"Id": 3,
+	"Name": "Three"
+}, {
+	"__metadata": {
+		"id": "http://localhost:8080/cimply-backend-olingo-odata2-jpa-1.0.0/odata.svc/NumberSet(4)",
+		"uri": "http://localhost:8080/cimply-backend-olingo-odata2-jpa-1.0.0/odata.svc/NumberSet(4)",
+		"type": "me.cimply.Number"
+	},
+	"Id": 4,
+	"Name": "Four"
+}, {
+	"__metadata": {
+		"id": "http://localhost:8080/cimply-backend-olingo-odata2-jpa-1.0.0/odata.svc/NumberSet(5)",
+		"uri": "http://localhost:8080/cimply-backend-olingo-odata2-jpa-1.0.0/odata.svc/NumberSet(5)",
+		"type": "me.cimply.Number"
+	},
+	"Id": 5,
+	"Name": "Five"
+}]
