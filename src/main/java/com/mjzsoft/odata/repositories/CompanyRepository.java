@@ -13,21 +13,24 @@
  */
 
 package com.mjzsoft.odata.repositories;
+/**
+ * The repository for Company entity model.
+ * As the Company does not related to any other model it will place 
+ * at the first priority row, then we didn't overwrite the `sequence` function here. 
+ */
 
 import java.util.Optional;
 import com.mjzsoft.odata.models.Company;
 
+// Please notice that Company has a string type id, then the second type parameter that has been passed is string.  
 public interface CompanyRepository extends BaseRepository<Company, String> {
-
+	
 	Optional<Company> findById(String id);
-
+	
+	// This is an important function that tells the runner class the type of this repository.
+	// In the other word, what entity this repository belongs to.
 	@Override
 	public default Class<Company> getType() {
 		return Company.class;
-	}
-
-	@Override
-	public default int sequence() {
-		return 1;
 	}
 }
