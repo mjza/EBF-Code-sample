@@ -33,7 +33,7 @@ Above step will start the Tomcat container on default port 8080. Now we can acce
 http://localhost:8080/
 ```
 
-You can even run the app in a terminal by typing the following command inside the project folder:
+Alternatively, you can run the application in a terminal by typing the following command inside the project folder:
 
 ```
 mvn spring-boot:run
