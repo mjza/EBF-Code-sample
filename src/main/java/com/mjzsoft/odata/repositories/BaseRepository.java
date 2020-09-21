@@ -17,8 +17,8 @@ package com.mjzsoft.odata.repositories;
  * The BaseRepository interface is a generic one that all the repository classes must implement it.
  * This interface define some required functions that are needed in Runner class. 
  * The Runner class is responsible for feeding the tables.  
- * However, it has been designed in a way that does not to change it by adding new models. 
- * For making the Runner class we needed to define some parent repository interface to autowired all the models! 
+ * However, it has been designed in a way that does not need to change it by adding new models. 
+ * For making the Runner class so generic, we needed to define some parent repository interface to autowired all the repositories! 
  */
 
 import java.io.Serializable;
@@ -32,8 +32,13 @@ import org.springframework.data.repository.NoRepositoryBean;
 @NoRepositoryBean
 public interface BaseRepository<T, ID extends Serializable> extends JpaRepository<T, ID> {
 	
-	// A function that must be overwritten in child class for finding entities by their id
-	// is used in Runner class to find related object to foreign keys. 
+	// A function that must be overwritten in child class for finding entities by
+	// their id.
+	// It is used in Runner class to find related object to foreign keys.
+	// However, as you may noticed, the id here is of type string as the data in csv
+	// files are string.
+	// So it may happen that we need to convert the id and call another findById
+	// function.
 	public Optional<T> findById(String id);
 	
 	// A function that must be overwritten in child class to give the class type of the child repository!

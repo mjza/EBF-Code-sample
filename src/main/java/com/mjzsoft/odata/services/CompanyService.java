@@ -13,6 +13,9 @@
  */
 
 package com.mjzsoft.odata.services;
+/**
+ * The is a service for Company entity model.
+ */
 
 import java.util.Optional;
 
@@ -33,6 +36,9 @@ public class CompanyService implements BaseService<Company> {
 		return companyRepository.findById(id);
 	}
 
+	// This is an important function that tells the runner class the type of this
+	// service.
+	// In the other word, what entity this service belongs to.
 	@Override
 	public Class<Company> getType() {
 		return Company.class;

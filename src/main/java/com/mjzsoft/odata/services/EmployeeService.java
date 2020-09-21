@@ -13,6 +13,9 @@
  */
 
 package com.mjzsoft.odata.services;
+/**
+ * The is a service for Employee entity model.
+ */
 
 import java.util.Optional;
 
@@ -33,6 +36,9 @@ public class EmployeeService implements BaseService<Employee> {
 		return employeeRepository.findById(Integer.parseInt(id));
 	}
 
+	// This is an important function that tells the runner class the type of this
+	// service.
+	// In the other word, what entity this service belongs to.
 	@Override
 	public Class<Employee> getType() {
 		return Employee.class;
