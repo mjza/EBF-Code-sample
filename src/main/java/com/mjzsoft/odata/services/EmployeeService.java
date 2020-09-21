@@ -24,17 +24,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EmployeeService implements BaseService<Employee> {
-	
+
 	@Autowired
-    private EmployeeRepository employeeRepository;
-	
+	private EmployeeRepository employeeRepository;
+
 	@Override
-	public Optional<Employee> findById(String id){
+	public Optional<Employee> findById(String id) {
 		return employeeRepository.findById(Integer.parseInt(id));
-    }
-	
+	}
+
 	@Override
-    public Class<Employee> getType() {
-        return Employee.class;
-    }
+	public Class<Employee> getType() {
+		return Employee.class;
+	}
 }

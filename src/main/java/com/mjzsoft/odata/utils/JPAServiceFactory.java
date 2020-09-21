@@ -44,7 +44,7 @@ public class JPAServiceFactory extends ODataJPAServiceFactory {
 	@Override
 	public ODataJPAContext initializeODataJPAContext() throws ODataJPARuntimeException {
 		logger.info("ODataJPAContext initiated");
-		ODataJPAContext oDataJPAContext = getODataJPAContext();		
+		ODataJPAContext oDataJPAContext = getODataJPAContext();
 		// Set current locale if passed in the URL
 		ODataContext oDataContext = oDataJPAContext.getODataContext();
 		if (oDataContext.getParameter("Accept-Language") == null) {
@@ -70,17 +70,18 @@ public class JPAServiceFactory extends ODataJPAServiceFactory {
 				e.printStackTrace();
 			}
 		}
-		
-		//HttpServletRequest request = (HttpServletRequest) oDataContext.getParameter(ODataContext.HTTP_SERVLET_REQUEST_OBJECT);
-		
+
+		// HttpServletRequest request = (HttpServletRequest)
+		// oDataContext.getParameter(ODataContext.HTTP_SERVLET_REQUEST_OBJECT);
+
 		EntityManagerFactory factory = (EntityManagerFactory) SpringContextsUtil.getBean(ENTITY_MANAGER_FACTORY_ID);
 		oDataJPAContext.setEntityManagerFactory(factory);
 		oDataJPAContext.setPersistenceUnitName(DEFAULT_ENTITY_UNIT_NAME);
 		oDataJPAContext.setJPAEdmExtension(new JPAEdmExtension());
 		ODataContextUtil.setODataContext(oDataJPAContext.getODataContext());
-		
-		//Register Call Back
-		setOnWriteJPAContent(onDBWriteContent); 
+
+		// Register Call Back
+		setOnWriteJPAContent(onDBWriteContent);
 
 		return oDataJPAContext;
 

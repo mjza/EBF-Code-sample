@@ -24,17 +24,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CompanyService implements BaseService<Company> {
-	
+
 	@Autowired
-    private CompanyRepository companyRepository;
-	
+	private CompanyRepository companyRepository;
+
 	@Override
-	public Optional<Company> findById(String id){
+	public Optional<Company> findById(String id) {
 		return companyRepository.findById(id);
-    }
-	
+	}
+
 	@Override
-    public Class<Company> getType() {
-        return Company.class;
-    }
+	public Class<Company> getType() {
+		return Company.class;
+	}
 }

@@ -25,7 +25,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,11 +42,10 @@ public class Runner implements CommandLineRunner {
 	private static final Logger logger = LoggerFactory.getLogger(Runner.class);
 
 	private List<BaseService<?>> services;
-	private List<BaseRepository<?,?>> repositories;
+	private List<BaseRepository<?, ?>> repositories;
 
 	@Autowired
-	public Runner(List<BaseService<?>> services,
-			List<BaseRepository<?,?>> repositories) {
+	public Runner(List<BaseService<?>> services, List<BaseRepository<?, ?>> repositories) {
 
 		this.services = services;
 
@@ -73,14 +71,15 @@ public class Runner implements CommandLineRunner {
 				return;
 			String entityName = type.getSimpleName();
 			logger.info(entityName + " table in Database is still empty. Adding some sample records from csv file.");
-			try {				
-				InputStream inputStream = getClass().getClassLoader().getResourceAsStream("mockdata/" + entityName + ".csv");
+			try {
+				InputStream inputStream = getClass().getClassLoader()
+						.getResourceAsStream("mockdata/" + entityName + ".csv");
 				if (inputStream == null) {
 					logger.warn("Couldn't find `" + entityName + ".csv` file in the `/resources/mockdata/` folder!");
 					throw new IllegalArgumentException("file not found! " + entityName + ".csv");
 				}
 				InputStreamReader streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
-	            BufferedReader bufferedReader = new BufferedReader(streamReader);
+				BufferedReader bufferedReader = new BufferedReader(streamReader);
 				CSVReader csvReader = new CSVReader(bufferedReader);
 				String[] line;
 				boolean firstLine = true;
@@ -99,7 +98,7 @@ public class Runner implements CommandLineRunner {
 						for (int i = 0; i < values.length && i < columns.size(); i++) {
 							String column = columns.get(i);
 							Object value = values[i];
-							SpringContextsUtil.updateColumn(type, object, column, value, services);							
+							SpringContextsUtil.updateColumn(type, object, column, value, services);
 						}
 						repository.save(object);
 					} catch (Exception e) {

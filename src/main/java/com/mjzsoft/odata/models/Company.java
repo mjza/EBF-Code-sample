@@ -56,7 +56,7 @@ public class Company implements Serializable {
 
 	@Sap(filterable = true, sortable = true, creatable = false, updatable = false, deletable = false)
 	@SAPLineItem
-	@Column(name = "average_salary", nullable = false,  updatable=false, insertable=false)
+	@Column(name = "average_salary", nullable = false, updatable = false, insertable = false)
 	@ColumnDefault("0.0")
 	private double averageSalary;
 

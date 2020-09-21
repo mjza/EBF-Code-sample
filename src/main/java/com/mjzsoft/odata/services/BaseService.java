@@ -18,5 +18,6 @@ import java.util.Optional;
 
 public interface BaseService<T> {
 	public Class<T> getType();
-    public Optional<T> findById(String id);
+
+	public Optional<T> findById(String id);
 }

@@ -30,55 +30,54 @@ import com.mjzsoft.odata.annotations.SAPLineItem;
 import com.mjzsoft.odata.annotations.Sap;
 
 @Entity
-@Table(name="employees")
-@NamedQuery(name="Employee.findAll", query="SELECT e FROM Employee e")
+@Table(name = "employees")
+@NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
 public class Employee implements Serializable {
 
 	/**
 	 * Default serialize version
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Sap(filterable=true, sortable=true, creatable=false, updatable=false)
-	@Column(name = "id", unique=true, nullable=false)
-	private int id;
-	
-	@Sap(filterable=true, sortable=true, creatable=true, updatable=true)
-	@SAPLineItem
-	@Column(name = "firstname", nullable=false, length=255)
-	private String firstname;
-	
-	@Sap(filterable=true, sortable=true, creatable=true, updatable=true)
-	@SAPLineItem
-	@Column(name = "lastname", nullable=false, length=255)
-    private String lastname;
-	
-	@Sap(filterable=true, sortable=true, creatable=true, updatable=true)
-	@SAPLineItem
-	@Column(name = "email", nullable=true, length=255)
-    private String email;
-	
-	@Sap(filterable=true, sortable=false, creatable=true, updatable=true)
-	@SAPLineItem
-	@Column(name = "address", nullable=true, length=255)
-    private String address;
-	
-	@Sap(filterable=true, sortable=true, creatable=true, updatable=true)
-	@SAPLineItem
-	@Column(name = "salary", nullable=false)
-    private double salary;	
-	
-	//bi-directional many-to-one association to Qtype
-	@Sap(filterable=true, sortable=true, creatable=true, updatable=true)
-	@ManyToOne
-	@JoinColumn(name="company_id", referencedColumnName = "id", nullable=false)
-	private Company company;
-	
 
-    public Employee() {
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Sap(filterable = true, sortable = true, creatable = false, updatable = false)
+	@Column(name = "id", unique = true, nullable = false)
+	private int id;
+
+	@Sap(filterable = true, sortable = true, creatable = true, updatable = true)
+	@SAPLineItem
+	@Column(name = "firstname", nullable = false, length = 255)
+	private String firstname;
+
+	@Sap(filterable = true, sortable = true, creatable = true, updatable = true)
+	@SAPLineItem
+	@Column(name = "lastname", nullable = false, length = 255)
+	private String lastname;
+
+	@Sap(filterable = true, sortable = true, creatable = true, updatable = true)
+	@SAPLineItem
+	@Column(name = "email", nullable = true, length = 255)
+	private String email;
+
+	@Sap(filterable = true, sortable = false, creatable = true, updatable = true)
+	@SAPLineItem
+	@Column(name = "address", nullable = true, length = 255)
+	private String address;
+
+	@Sap(filterable = true, sortable = true, creatable = true, updatable = true)
+	@SAPLineItem
+	@Column(name = "salary", nullable = false)
+	private double salary;
+
+	// bi-directional many-to-one association to Qtype
+	@Sap(filterable = true, sortable = true, creatable = true, updatable = true)
+	@ManyToOne
+	@JoinColumn(name = "company_id", referencedColumnName = "id", nullable = false)
+	private Company company;
+
+	public Employee() {
+	}
 
 	public int getId() {
 		return id;
@@ -103,7 +102,7 @@ public class Employee implements Serializable {
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
@@ -111,7 +110,7 @@ public class Employee implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String getAddress() {
 		return address;
 	}
@@ -119,7 +118,7 @@ public class Employee implements Serializable {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+
 	public double getSalary() {
 		return salary;
 	}
@@ -127,7 +126,7 @@ public class Employee implements Serializable {
 	public void setSalary(double salary) {
 		this.salary = salary;
 	}
-	
+
 	public Company getCompany() {
 		return this.company;
 	}
@@ -135,5 +134,5 @@ public class Employee implements Serializable {
 	public void setCompany(Company company) {
 		this.company = company;
 	}
-	
+
 }

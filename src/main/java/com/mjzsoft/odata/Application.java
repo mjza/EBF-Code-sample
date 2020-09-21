@@ -32,9 +32,9 @@ public class Application extends SpringBootServletInitializer {
 	}
 
 	public static void main(String[] args) {
-		logger.info("Application has been started.");		
+		logger.info("Application has been started.");
 		SpringApplication.run(Application.class);
-		
+
 	}
 
 }

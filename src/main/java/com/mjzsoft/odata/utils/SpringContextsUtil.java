@@ -55,10 +55,6 @@ import org.springframework.stereotype.Component;
 import com.mjzsoft.odata.repositories.BaseRepository;
 import com.mjzsoft.odata.services.BaseService;
 
-/**
- * NOTE: This Class should only be used in those Object not managed by SIC
- */
-
 @Component
 public class SpringContextsUtil implements ApplicationContextAware {
 	final static Logger logger = LoggerFactory.getLogger(SpringContextsUtil.class);
@@ -229,7 +225,9 @@ public class SpringContextsUtil implements ApplicationContextAware {
 	}
 
 	public static void updateObject(ODataJPAContext oDataJPAContext, Class<?> type, Object object,
-			Map<String, Object> data) throws ODataBadRequestException, ODataInternalServerErrorException, NoSuchFieldException, SecurityException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
+			Map<String, Object> data) throws ODataBadRequestException, ODataInternalServerErrorException,
+			NoSuchFieldException, SecurityException, ClassNotFoundException, NoSuchMethodException,
+			IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
 		Map<String, String> columnsMap = new HashMap<>();
 		SpringContextsUtil.fetchColumnsMap(oDataJPAContext, type, columnsMap);
 		// Load the services
@@ -242,25 +240,24 @@ public class SpringContextsUtil implements ApplicationContextAware {
 			SpringContextsUtil.updateColumn(type, object, column, value, services);
 		} // end of mapping
 	}
-	
-	
-	
 
 	public static void updateColumn(Class<?> type, Object object, String column, Object value,
-			List<BaseService<?>> services) throws NoSuchFieldException, SecurityException, ODataBadRequestException, ODataInternalServerErrorException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException  {
+			List<BaseService<?>> services) throws NoSuchFieldException, SecurityException, ODataBadRequestException,
+			ODataInternalServerErrorException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException, InstantiationException {
 		Inflector inflector = new Inflector();
 		String methodName = "";
 		boolean nullValueAllowed = true;
 		Type columnType = type.getDeclaredField(column).getGenericType();
 		if (columnType instanceof ParameterizedType) {
-	        ParameterizedType parameterizedType = (ParameterizedType) columnType;	   
-	        columnType = parameterizedType.getActualTypeArguments()[0];
-	        methodName = "add" + inflector.upperCamelCase(inflector.singularize(column));
-	        nullValueAllowed = false;
-	    } else {	     
-			methodName = "set" + inflector.upperCamelCase(column);		
-	    }
-		
+			ParameterizedType parameterizedType = (ParameterizedType) columnType;
+			columnType = parameterizedType.getActualTypeArguments()[0];
+			methodName = "add" + inflector.upperCamelCase(inflector.singularize(column));
+			nullValueAllowed = false;
+		} else {
+			methodName = "set" + inflector.upperCamelCase(column);
+		}
+
 		Class<?> columnClass = null;
 		Class<?> convertorClass = null;
 		Class<?> argClass = String.class;
@@ -270,8 +267,8 @@ public class SpringContextsUtil implements ApplicationContextAware {
 		if (SpringContextsUtil.isEntity((Class<?>) columnType)) {
 			convert = false;
 			boolean serviceFound = false;
-			// if the FK isn't passed, maybe it is optional 
-			if(value == null || value.toString().trim().isEmpty()) {
+			// if the FK isn't passed, maybe it is optional
+			if (value == null || value.toString().trim().isEmpty()) {
 				serviceFound = true;
 				value = null;
 			}
@@ -286,14 +283,14 @@ public class SpringContextsUtil implements ApplicationContextAware {
 					} else {
 						// if the FK does not exist!
 						MessageReference msgRef = ODataNotFoundException.ENTITY.create();
-						msgRef.addContent("There is no object for passed foreign key id: {" + value + "} for the property {"
-								+ column + "}.");
+						msgRef.addContent("There is no object for passed foreign key id: {" + value
+								+ "} for the property {" + column + "}.");
 						throw new ODataBadRequestException(msgRef);
 					}
 				}
 			}
 			if (!serviceFound) {
-				MessageReference msgRef = ODataNotImplementedException.COMMON.create();			
+				MessageReference msgRef = ODataNotImplementedException.COMMON.create();
 				msgRef.addContent("The service class does not exist for " + columnType.getTypeName() + " entity.");
 				throw new ODataInternalServerErrorException(msgRef);
 			}
@@ -336,7 +333,7 @@ public class SpringContextsUtil implements ApplicationContextAware {
 			columnClass = Class.forName(columnType.getTypeName());
 			convertorClass = columnClass;
 			if (value == null || value.toString().isEmpty()) {
-				if(!nullValueAllowed) {
+				if (!nullValueAllowed) {
 					return; // ignore the value in this case!
 				}
 				value = null;
@@ -369,15 +366,17 @@ public class SpringContextsUtil implements ApplicationContextAware {
 		}
 		Method method = object.getClass().getMethod(methodName, columnClass);
 		// When it is entity we don't need conversion!
-		if(convertorClass.isEnum()) {			
-			method.invoke(object, convert ? convertorClass.getMethod("valueOf", String.class).invoke(convertorClass, value) : value);
+		if (convertorClass.isEnum()) {
+			method.invoke(object,
+					convert ? convertorClass.getMethod("valueOf", String.class).invoke(convertorClass, value) : value);
 		} else {
 			method.invoke(object, convert ? convertorClass.getDeclaredConstructor(argClass).newInstance(value) : value);
 		}
 	}
 
 	public static void updateDataMap(ODataJPAContext oDataJPAContext, Class<?> type, Object persisted,
-			Map<String, Object> data) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException  {
+			Map<String, Object> data) throws NoSuchMethodException, SecurityException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException {
 		// Extract list of columns and their types from repository
 		Map<String, Class<?>> columnsType = new HashMap<>();
 		SpringContextsUtil.fetchColumnsType(oDataJPAContext, type, columnsType);
