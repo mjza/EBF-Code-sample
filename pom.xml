@@ -143,7 +143,6 @@
 						</goals>
 						<configuration>
 							<outputDirectory>${basedir}/target/classes/static</outputDirectory>
-							<includeEmptyDirs>true</includeEmptyDirs>
 							<resources>
 								<resource>
 									<directory>${basedir}/src/main/webapp</directory>
