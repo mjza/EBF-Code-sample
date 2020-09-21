@@ -13,7 +13,7 @@
  */
 
 package com.mjzsoft.odata.configs;
-/*
+/**
  * A configuration class that solves CORS problem for development purposes   
  */
 

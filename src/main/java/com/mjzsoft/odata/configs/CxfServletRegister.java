@@ -13,7 +13,7 @@
  */
 
 package com.mjzsoft.odata.configs;
-/*
+/**
  * A configuration class that registers oData service URL and determines related JPA service factory for that.
  * The starting point for serving oData requests is `com.mjzsoft.odata.utils.JPAServiceFactory`.
  * This bean only is called once to bind the JPA factory and oData URL.  

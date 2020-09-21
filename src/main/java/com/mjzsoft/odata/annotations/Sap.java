@@ -13,7 +13,7 @@
  */
 
 package com.mjzsoft.odata.annotations;
-/*
+/**
  * An annotation class that is used to add sap:x annotations in the metadata 
  */
 

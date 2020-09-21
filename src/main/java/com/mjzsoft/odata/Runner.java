@@ -13,7 +13,7 @@
  */
 
 package com.mjzsoft.odata;
-/*
+/**
  * Runner class is responsible for checking the database tables and if they are empty feeds them based on {Entity}.csv files inside the `resources\mockdata\` directory.  
  */
 

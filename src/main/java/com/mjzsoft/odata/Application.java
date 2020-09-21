@@ -13,7 +13,7 @@
  */
 
 package com.mjzsoft.odata;
-/*
+/**
  * Starting point of application that will make the main thread for initializing the Servlet.  
  */
 

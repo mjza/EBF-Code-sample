@@ -13,6 +13,19 @@
  */
 
 package com.mjzsoft.odata.models;
+/**
+ * The persistent class for the companies database table.
+ * The state-of-art here is the `averageSalary` property,
+ * it is a fake column that keeps 0 in the DB,
+ * however, when user sends a request to read the list of employees,
+ * we calculate this value. It is not the best solution for oData.
+ * We must use function imports and query, however for this test case
+ * I think it is sufficient.
+ * 
+ * The class is so simple, it contains some properties and getters and setters.
+ * Therefore, we don't provide any more further comments! 
+ *   
+ */
 
 import javax.persistence.*;
 
@@ -25,10 +38,6 @@ import java.util.Set;
 import org.apache.commons.math3.util.Precision;
 import org.hibernate.annotations.ColumnDefault;
 
-/**
- * The persistent class for the companies database table.
- * 
- */
 @Entity
 @Table(name = "companies")
 @NamedQuery(name = "Company.findAll", query = "SELECT c FROM Company c")

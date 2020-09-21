@@ -13,6 +13,16 @@
  */
 
 package com.mjzsoft.odata.models;
+/**
+ * The persistent class for the employees database table.
+ * The state-of-art here is the `company` property,
+ * It is a navigation property that will provide expand functionality in oData 
+ * for us. 
+ * 
+ * The class is so simple, it contains some properties and getters and setters.
+ * Therefore, we don't provide any more further comments! 
+ *   
+ */
 
 import java.io.Serializable;
 
