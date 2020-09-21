@@ -20,8 +20,13 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+// Annotation Type Target
 @Target({ FIELD })
+
+// The annotation is available at runtime also
 @Retention(RUNTIME)
+
+// Used by SAPUI5 in smart table to show a property in the lists and tables 
 public @interface SAPLineItem {
 
 }

@@ -20,17 +20,27 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+// Annotation Type Target
 @Target({ FIELD })
+
+// The annotation is available at runtime also
 @Retention(RUNTIME)
 
+// The annotation interface that will be used to extend the odata metadata later in run time
 public @interface Sap {
+	
+	// if false the sorting on the filed will be ignored
 	boolean sortable() default false;
-
+	
+	// if false the filtering on the filed will be ignored
 	boolean filterable() default false;
-
+	
+	// if false the field cannot be passed in the creation time (Post request)!
 	boolean creatable() default false;
 
+	// if false the field cannot be updated by PUT requests!
 	boolean updatable() default false;
-
+	
+	// if false the field cannot be cleaned or null pass for in the update time!
 	boolean deletable() default false;
 }
