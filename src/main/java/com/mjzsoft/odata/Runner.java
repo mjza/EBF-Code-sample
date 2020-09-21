@@ -3,13 +3,10 @@ package com.mjzsoft.odata;
 import com.opencsv.CSVReader;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Constructor;
-import java.net.URI;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -62,14 +59,14 @@ public class Runner implements CommandLineRunner {
 				return;
 			String entityName = type.getSimpleName();
 			logger.info(entityName + " table in Database is still empty. Adding some sample records from csv file.");
-			try {
-				URL url = getClass().getClassLoader().getResource("mockdata/" + entityName + ".csv");
-				if (url == null) {
+			try {				
+				InputStream inputStream = getClass().getClassLoader().getResourceAsStream("mockdata/" + entityName + ".csv");
+				if (inputStream == null) {
 					logger.warn("Couldn't find `" + entityName + ".csv` file in the `/resources/mockdata/` folder!");
-					return;
+					throw new IllegalArgumentException("file not found! " + entityName + ".csv");
 				}
-				Path path = Paths.get(URI.create(url.toString()));
-				BufferedReader bufferedReader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
+				InputStreamReader streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+	            BufferedReader bufferedReader = new BufferedReader(streamReader);
 				CSVReader csvReader = new CSVReader(bufferedReader);
 				String[] line;
 				boolean firstLine = true;
