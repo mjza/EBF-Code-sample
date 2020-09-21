@@ -13,6 +13,9 @@
  */
 
 package com.mjzsoft.odata.configs;
+/*
+ * A configuration class that solves CORS problem for development purposes   
+ */
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

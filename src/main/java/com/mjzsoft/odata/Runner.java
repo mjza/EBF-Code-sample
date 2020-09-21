@@ -13,6 +13,9 @@
  */
 
 package com.mjzsoft.odata;
+/*
+ * Runner class is responsible for checking the database tables and if they are empty feeds them based on {Entity}.csv files inside the `resources\mockdata\` directory.  
+ */
 
 import com.opencsv.CSVReader;
 
@@ -48,10 +51,14 @@ public class Runner implements CommandLineRunner {
 	public Runner(List<BaseService<?>> services, List<BaseRepository<?, ?>> repositories) {
 
 		this.services = services;
-
+		
+		// sort the repositories based on their sequences
+		// the sequences are representing the foreign keys dependencies between models 
+		// As much as the sequence value is lower, the equivalent model must be fed first. 
 		Collections.sort(repositories, (r1, r2) -> {
 			return r1.sequence() - r2.sequence();
 		});
+		
 		this.repositories = repositories;
 	}
 
@@ -65,19 +72,26 @@ public class Runner implements CommandLineRunner {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void fillRepository(BaseRepository repository) {
+		// checks if the table is empty then
 		if (repository.count() == 0) {
+			// get the related model for that repository
 			Class type = repository.getType();
+			// if type is not set in the child repository then return 
 			if (type == null)
 				return;
+			// try to find the csv file related to the entity model 
 			String entityName = type.getSimpleName();
 			logger.info(entityName + " table in Database is still empty. Adding some sample records from csv file.");
 			try {
 				InputStream inputStream = getClass().getClassLoader()
 						.getResourceAsStream("mockdata/" + entityName + ".csv");
+				// if it fails to find the csv file will throw an exception 
 				if (inputStream == null) {
 					logger.warn("Couldn't find `" + entityName + ".csv` file in the `/resources/mockdata/` folder!");
 					throw new IllegalArgumentException("file not found! " + entityName + ".csv");
 				}
+				
+				// otherwise starts to read the csv values and fill the entity 
 				InputStreamReader streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
 				BufferedReader bufferedReader = new BufferedReader(streamReader);
 				CSVReader csvReader = new CSVReader(bufferedReader);
@@ -86,20 +100,25 @@ public class Runner implements CommandLineRunner {
 				List<String> columns = null;
 				while ((line = csvReader.readNext()) != null) {
 					String[] values = line;
+					// skip the first line as it is columns name!
 					if (firstLine) {
 						firstLine = false;
 						columns = Arrays.asList(values);
 						continue;
 					}
-
+					// from the second line of the csv file
 					try {
+						// make an entity
 						Constructor<?> constructor = type.getConstructor();
 						Object object = constructor.newInstance();
+						// for each value in the line call the `SpringContextsUtil.updateColumn` static function
+						// to fill the property 
 						for (int i = 0; i < values.length && i < columns.size(); i++) {
 							String column = columns.get(i);
 							Object value = values[i];
 							SpringContextsUtil.updateColumn(type, object, column, value, services);
 						}
+						// commit the changes to DB
 						repository.save(object);
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -108,7 +127,9 @@ public class Runner implements CommandLineRunner {
 						break;
 					}
 				}
+				// close the CSV reader stream
 				csvReader.close();
+				// close the buffer reader stream 
 				bufferedReader.close();
 			} catch (Exception e) {
 				logger.error("Line " + Thread.currentThread().getStackTrace()[1].getLineNumber() + ": " + e.toString());

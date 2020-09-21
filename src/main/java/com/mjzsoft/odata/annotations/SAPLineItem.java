@@ -13,6 +13,9 @@
  */
 
 package com.mjzsoft.odata.annotations;
+/*
+ * An annotation class that is used to add sap:LineItem annotation in the metadata 
+ */
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
