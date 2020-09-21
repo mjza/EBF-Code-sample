@@ -31,10 +31,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-		<!-- <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -70,9 +66,9 @@
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 		<dependency>
-            <groupId>org.hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
-        </dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-frontend-jaxrs</artifactId>
@@ -116,10 +112,10 @@
 			<artifactId>commons-math3</artifactId>
 			<version>${math3.version}</version>
 		</dependency>
-		
+
 	</dependencies>
 
-	<build>
+	<build>		
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -133,7 +129,7 @@
 					<target>${java.version}</target>
 				</configuration>
 			</plugin>
-			<plugin>				
+			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
 				<configuration>
 					<encoding>UTF-8</encoding>
@@ -147,9 +143,10 @@
 						</goals>
 						<configuration>
 							<outputDirectory>${basedir}/target/classes/static</outputDirectory>
+							<includeEmptyDirs>true</includeEmptyDirs>
 							<resources>
 								<resource>
-									<directory>src/main/webapp</directory>
+									<directory>${basedir}/src/main/webapp</directory>
 									<filtering>false</filtering>
 								</resource>
 							</resources>
