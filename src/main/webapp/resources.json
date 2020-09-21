@@ -1,7 +1,10 @@
 {
     "resources": [
         {
-            "name": "controller/BaseController.js"
+            "name": "js/XML2JSON.js"
+        },
+        {
+            "name": "controller/Object.controller.js"
         },
         {
             "name": "localService/mockdata/Companies.json"
@@ -22,10 +25,11 @@
             "name": "js/jszip.min.js"
         },
         {
-            "name": "js/XML2JSON.js"
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         },
         {
-            "name": "controller/Object.controller.js"
+            "name": "localService/mockdata/Employees.json"
         },
         {
             "name": "controller/NotFound.controller.js"
@@ -49,7 +53,7 @@
             "name": "controller/Detail.controller.js"
         },
         {
-            "name": "localService/mockdata/Employees.json"
+            "name": "controller/BaseController.js"
         },
         {
             "name": "controller/App.controller.js"
@@ -63,10 +67,6 @@
         {
             "name": "Component-preload.js",
             "merged": true
-        },
-        {
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
         },
         {
             "name": "model/models-dbg.js",

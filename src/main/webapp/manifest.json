@@ -22,7 +22,8 @@
         "sourceTemplate": {
             "id": "sap.ui.ui5-template-plugin.2masterdetail",
             "version": "1.60.1"
-        }
+        },
+        "_version": "1.3.0"
     },
     "sap.ui": {
         "technology": "UI5",
@@ -38,9 +39,14 @@
             "desktop": true,
             "tablet": true,
             "phone": true
-        }
+        },
+        "_version": "1.3.0",
+        "supportedThemes": [
+            "sap_belize"
+        ]
     },
     "sap.ui5": {
+        "_version": "1.2.0",
         "rootView": {
             "viewName": "com.mjzsoft.demo.ui5.GeneralODataViewer.view.App",
             "type": "XML",
@@ -56,7 +62,10 @@
                 "sap.f": {},
                 "sap.m": {},
                 "sap.ui.core": {},
-                "sap.ushell": {}
+                "sap.ushell": {},
+                "sap.ui.comp": {},
+                "sap.ui.table": {},
+                "sap.ui.unified": {}
             }
         },
         "contentDensities": {
@@ -72,7 +81,9 @@
             },
             "": {
                 "dataSource": "mainService",
-                "preload": true
+                "settings": {
+                    "preload": true
+                }
             }
         },
         "resources": {
@@ -150,6 +161,6 @@
     },
     "sap.platform.hcp": {
         "uri": "webapp",
-        "_version": "1.1.0"
+        "_version": "1.2.0"
     }
 }
