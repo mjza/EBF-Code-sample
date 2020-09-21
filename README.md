@@ -139,5 +139,5 @@ You must be able to see an output like this:
 
 ## Why did I use oData standard and not a tailor made API?
 
-Because I had not time to make a front-end application. Some years ago I made this front-end module that can generate the views based on oData metadata automatically. Therefore, we can add a new table in our back-end and we will see that table easily in the list in the front-end. However, using oData has much more benefits.  
+Because I had no time to make a front-end application. Some years ago I made this front-end module that can generate the views based on oData metadata automatically. Therefore, we can add a new table in our back-end and we will see that table easily in the list in the front-end. However, using oData has much more benefits.  
 
