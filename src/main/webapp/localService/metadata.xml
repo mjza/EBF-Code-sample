@@ -3,19 +3,25 @@
 	<edmx:DataServices m:DataServiceVersion="1.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
 		<Schema Namespace="com.mjzsoft" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
 			<EntityType Name="Company">
-				<Key><PropertyRef Name="Id"/></Key><Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="255" sap:label="Company ID"
-					xmlns:sap="http://www.sap.com/Protocols/SAPData" sap:deletable="false" sap:updatable="false" sap:filterable="true" sap:creatable="false"
+				<Key><PropertyRef Name="Id"/></Key><Property Name="AverageSalary" Type="Edm.Double" Nullable="false" sap:label="Average Salary"
+					xmlns:sap="http://www.sap.com/Protocols/SAPData" sap:deletable="false" sap:filterable="true" sap:updatable="false" sap:creatable="false"
+					sap:sortable="true"/><Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="255" sap:label="Company ID"
+					xmlns:sap="http://www.sap.com/Protocols/SAPData" sap:deletable="false" sap:filterable="true" sap:updatable="false" sap:creatable="true"
 					sap:sortable="true"/><Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="255" sap:label="Company Name"
-					xmlns:sap="http://www.sap.com/Protocols/SAPData" sap:deletable="false" sap:updatable="true" sap:filterable="true" sap:creatable="true"
+					xmlns:sap="http://www.sap.com/Protocols/SAPData" sap:deletable="false" sap:filterable="true" sap:updatable="true" sap:creatable="true"
 					sap:sortable="true"/><NavigationProperty Name="Employees" Relationship="com.mjzsoft.Company_Employee_One_Many0" FromRole="Company" ToRole="Employee"/></EntityType>
 			<EntityType Name="Employee">
-				<Key><PropertyRef Name="Id"/></Key><Property Name="CompanyId" Type="Edm.String" Nullable="false" MaxLength="255" sap:label="Company ID"
-					xmlns:sap="http://www.sap.com/Protocols/SAPData"/><Property Name="Firstname" Type="Edm.String" Nullable="false" MaxLength="255" sap:label="First Name"
-					xmlns:sap="http://www.sap.com/Protocols/SAPData" sap:deletable="false" sap:updatable="true" sap:filterable="true" sap:creatable="true"
+				<Key><PropertyRef Name="Id"/></Key><Property Name="Address" Type="Edm.String" Nullable="true" MaxLength="255" sap:label="Address"
+					xmlns:sap="http://www.sap.com/Protocols/SAPData" sap:deletable="false" sap:filterable="true" sap:updatable="true" sap:creatable="true"
+					sap:sortable="false"/><Property Name="CompanyId" Type="Edm.String" Nullable="false" MaxLength="255" sap:label="Company ID"
+					xmlns:sap="http://www.sap.com/Protocols/SAPData"/><Property Name="Email" Type="Edm.String" Nullable="true" MaxLength="255" sap:label="Email" xmlns:sap="http://www.sap.com/Protocols/SAPData"
+					sap:deletable="false" sap:filterable="true" sap:updatable="true" sap:creatable="true" sap:sortable="true"/><Property Name="Firstname" Type="Edm.String" Nullable="false" MaxLength="255" sap:label="Name"
+					xmlns:sap="http://www.sap.com/Protocols/SAPData" sap:deletable="false" sap:filterable="true" sap:updatable="true" sap:creatable="true"
 					sap:sortable="true"/><Property Name="Id" Type="Edm.Int32" Nullable="false" sap:label="Employee ID" xmlns:sap="http://www.sap.com/Protocols/SAPData"
-					sap:deletable="false" sap:updatable="false" sap:filterable="true" sap:creatable="false" sap:sortable="true"/><Property Name="Lastname" Type="Edm.String" Nullable="false" MaxLength="255" sap:label="Last Name"
-					xmlns:sap="http://www.sap.com/Protocols/SAPData" sap:deletable="false" sap:updatable="true" sap:filterable="true" sap:creatable="true"
-					sap:sortable="true"/><NavigationProperty Name="Company" Relationship="com.mjzsoft.Company_Employee_One_Many0" FromRole="Employee" ToRole="Company"/></EntityType>
+					sap:deletable="false" sap:filterable="true" sap:updatable="false" sap:creatable="false" sap:sortable="true"/><Property Name="Lastname" Type="Edm.String" Nullable="false" MaxLength="255" sap:label="Surname"
+					xmlns:sap="http://www.sap.com/Protocols/SAPData" sap:deletable="false" sap:filterable="true" sap:updatable="true" sap:creatable="true"
+					sap:sortable="true"/><Property Name="Salary" Type="Edm.Double" Nullable="false" sap:label="Salary" xmlns:sap="http://www.sap.com/Protocols/SAPData"
+					sap:deletable="false" sap:filterable="true" sap:updatable="true" sap:creatable="true" sap:sortable="true"/><NavigationProperty Name="Company" Relationship="com.mjzsoft.Company_Employee_One_Many0" FromRole="Employee" ToRole="Company"/></EntityType>
 			<Association Name="Company_Employee_One_Many0"><End Type="com.mjzsoft.Company" Multiplicity="0..1" Role="Company"/><End Type="com.mjzsoft.Employee" Multiplicity="*" Role="Employee"/>
 				<ReferentialConstraint>
 					<Principal Role="Company"><PropertyRef Name="Id"/></Principal>
@@ -26,13 +32,22 @@
 				<AssociationSet Name="Company_Employee_One_Many0Set" Association="com.mjzsoft.Company_Employee_One_Many0"><End EntitySet="Companies" Role="Company"/><End EntitySet="Employees" Role="Employee"/></AssociationSet>
 			</EntityContainer>
 			<Annotations Target="com.mjzsoft.Company" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-				<Annotation Term="com.sap.vocabularies.UI.v1.LineItem"><Collection/></Annotation>
+				<Annotation Term="com.sap.vocabularies.UI.v1.LineItem">
+					<Collection>
+						<Record Type="com.sap.vocabularies.UI.v1.DataField"><PropertyValue Path="Id" Property="Value"/></Record>
+						<Record Type="com.sap.vocabularies.UI.v1.DataField"><PropertyValue Path="Name" Property="Value"/></Record>
+						<Record Type="com.sap.vocabularies.UI.v1.DataField"><PropertyValue Path="AverageSalary" Property="Value"/></Record>
+					</Collection>
+				</Annotation>
 			</Annotations>
 			<Annotations Target="com.mjzsoft.Employee" xmlns="http://docs.oasis-open.org/odata/ns/edm">
 				<Annotation Term="com.sap.vocabularies.UI.v1.LineItem">
 					<Collection>
 						<Record Type="com.sap.vocabularies.UI.v1.DataField"><PropertyValue Path="Firstname" Property="Value"/></Record>
 						<Record Type="com.sap.vocabularies.UI.v1.DataField"><PropertyValue Path="Lastname" Property="Value"/></Record>
+						<Record Type="com.sap.vocabularies.UI.v1.DataField"><PropertyValue Path="Email" Property="Value"/></Record>
+						<Record Type="com.sap.vocabularies.UI.v1.DataField"><PropertyValue Path="Address" Property="Value"/></Record>
+						<Record Type="com.sap.vocabularies.UI.v1.DataField"><PropertyValue Path="Salary" Property="Value"/></Record>
 					</Collection>
 				</Annotation>
 			</Annotations>

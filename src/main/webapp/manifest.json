@@ -11,7 +11,7 @@
         },
         "dataSources": {
             "mainService": {
-                "uri": "/odata.svc/",
+                "uri": "./odata.svc/",
                 "type": "OData",
                 "settings": {
                     "odataVersion": "2.0",
